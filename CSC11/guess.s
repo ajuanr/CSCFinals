@@ -1,4 +1,21 @@
 /* Guess a number between 1 and 1000 */
+.data
+.balign 4
+gesMsg: .asciz "Enter a number between 1 and 1000: "
+
+.balign 4
+tooHigh: .asciz "Your guess of %d was too high.\n"
+
+.balign 4
+tooLow: .asciz "Your guess of %d was too low.\n"
+
+.balign 4
+inGuess: .word 0
+
+.balign 4
+gesFrmt: .asciz "%d"
+
+.text
 
 /* pass min value in r0
  * pass max value in r1 
@@ -25,6 +42,25 @@ random:
 
 
 .global main
-
 main:
+    push {lr}
+    sub sp,sp, #4
+
+    ldr r0, =gesMsg
+    bl printf
+
+    ldr r0, =gesFrmt
+    mov r1, sp
+    bl scanf
+
+    ldr r1, [sp]
+
+    ldr r0, =tooHigh
+    bl printf
+
+
+
+    add sp, sp, #4
+    pop {lr}
+    bx lr
 
