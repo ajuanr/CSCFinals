@@ -60,8 +60,7 @@ random:
 
 .global main
 main:
-    push {lr}
-    sub sp,sp, #4
+    push {r4, lr}
 
     /* seed the random number generator */
     mov r0, #0
@@ -140,7 +139,6 @@ main:
         beq play
 
     exit:
-        add sp, sp, #4
-        pop {lr}
+        pop {r4, lr}
         bx lr
 
