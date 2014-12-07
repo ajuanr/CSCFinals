@@ -1,6 +1,9 @@
 /* Guess a number between 1 and 1000 */
 .data
 .balign 4
+newLine: .asciz "\n"
+
+.balign 4
 gesMsg: .asciz "Enter a number between 1 and 1000: "
 
 .balign 4
@@ -8,6 +11,12 @@ tooHigh: .asciz "Your guess of %d was too high.\n"
 
 .balign 4
 tooLow: .asciz "Your guess of %d was too low.\n"
+
+.balign 4
+correct: .asciz "You guess of %d was correct!\n"
+
+.balign 4
+reveal: .asciz "Too many guesses. The number was %d.\n"
 
 .balign 4
 inGuess: .word 0
@@ -40,27 +49,75 @@ random:
     bx lr                             /* Leave main */
 /* Exit random number generator */
 
-
 .global main
 main:
     push {lr}
     sub sp,sp, #4
 
+    /* seed the random number generator */
+    mov r0, #0
+    bl time
+    bl srand
+
+    mov r0, #1
+    mov r1, #1000
+    bl random                       /* random returns num in r0*/
+    mov r4, r0                      /* save the number in r4 */
+
+        mov r1, r4
+        ldr r0, =tooHigh
+        bl printf
+
+    mov r5, #10                    /* initialize counter */
+    guessLoop:
+    cmp r5, #0
+    beq tooMany                    /* only 10 guesses allowed */
+
     ldr r0, =gesMsg
     bl printf
 
-    ldr r0, =gesFrmt
+    ldr r0, =gesFrmt              /* get the guess */
     mov r1, sp
     bl scanf
 
     ldr r1, [sp]
+    
+    sub r5, r5, #1                 /* decrement counter */
 
-    ldr r0, =tooHigh
-    bl printf
+    cmp r1, r4                     /* compare guess with random number */
+    bgt high
+    blt low
+    beq done
 
+    high:
+        ldr r0, =newLine
+        bl printf
+        ldr r0, =tooHigh
+        bl printf
+        b guessLoop
 
+    low:
+        ldr r0, =newLine
+        bl printf
+        ldr r0, =tooLow
+        bl printf
+        b guessLoop
 
-    add sp, sp, #4
-    pop {lr}
-    bx lr
+    done:
+        ldr r0, =newLine
+        bl printf
+        ldr r0, =correct
+        bl printf
+        b exit
+
+    tooMany:
+        ldr r0, =newLine
+        bl printf
+        ldr r0, =reveal
+        bl printf
+
+    exit:
+        add sp, sp, #4
+        pop {lr}
+        bx lr
 
