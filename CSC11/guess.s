@@ -7,13 +7,13 @@ newLine: .asciz "\n"
 gesMsg: .asciz "Enter a number between 1 and 1000: "
 
 .balign 4
-tooHigh: .asciz "Your guess of %d was too high.\n"
+tooHigh: .asciz "Too high. Try again.\n"
 
 .balign 4
-tooLow: .asciz "Your guess of %d was too low.\n"
+tooLow: .asciz "Too low.Try again.\n"
 
 .balign 4
-correct: .asciz "You guess of %d was correct!\n"
+correct: .asciz "You guess was correct!\n"
 
 .balign 4
 reveal: .asciz "Too many guesses. The number was %d.\n"
@@ -23,6 +23,15 @@ inGuess: .word 0
 
 .balign 4
 gesFrmt: .asciz "%d"
+
+.balign 4
+againMsg: .asciz "Would you like to play again(y)? "
+
+.balign 4
+againForm: .asciz " %c"
+
+.balign 4
+againChoice: .word 0
 
 .text
 
@@ -59,14 +68,14 @@ main:
     bl time
     bl srand
 
+    play:
+    ldr r0, =newLine
+    bl printf
+
     mov r0, #1
     mov r1, #1000
     bl random                       /* random returns num in r0*/
     mov r4, r0                      /* save the number in r4 */
-
-        mov r1, r4
-        ldr r0, =tooHigh
-        bl printf
 
     mov r5, #10                    /* initialize counter */
     guessLoop:
@@ -108,13 +117,27 @@ main:
         bl printf
         ldr r0, =correct
         bl printf
-        b exit
+        b playAgain
 
     tooMany:
         ldr r0, =newLine
         bl printf
         ldr r0, =reveal
+        mov r1, r4
         bl printf
+
+    playAgain:
+        ldr r0, =againMsg
+        bl printf
+
+        ldr r0, =againForm
+        ldr r1, =againChoice
+        bl scanf
+
+        ldr r1, =againChoice
+        ldr r1, [r1]
+        cmp r1, #'y'
+        beq play
 
     exit:
         add sp, sp, #4
