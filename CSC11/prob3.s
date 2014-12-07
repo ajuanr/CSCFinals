@@ -11,6 +11,13 @@ numRead: .asciz "Num read is %d\n"
 .balign 4
 floatRead: .asciz "Float is %f\n"
 
+.balign 4
+half: .float 0.5
+
+/* for nums 1-10000 sqrt is 0-100 */
+.balign 4
+xNot: .float 50
+
 .text
 .global main
 main:
@@ -30,9 +37,19 @@ main:
 
     ldr r1, adr_inNum
     ldr r1, [r1]
-    vmov s10, r1
+    vmov s10, r1                 /* s10 holds the num */
 
-    vcvt.f32.s32 s10, s10 
+    vcvt.f32.s32 s10, s10        /* convert number to float */
+
+    ldr r0, =half
+    vldr s11, [r0]               /* s11 holds 1/2 */
+    ldr r0, =xNot
+    vldr s12, [r0]               /* s12 holds initial guess xNot */
+
+    vdiv.f32 s10, s10, s12 
+    vadd.f32 s10, s10, s12
+    vmul.f32 s10, s11, s10
+
 
     /* for printing */
     vcvt.f64.f32 d0, s10
