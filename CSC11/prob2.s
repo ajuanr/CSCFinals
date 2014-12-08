@@ -38,8 +38,10 @@ one: .float 1.0
 fvArray: .skip 100
 
 .text
+
 /* Calculate the future value
  * FV = PV*(1+i)^n
+ * NOTE: doest not work when n is zero
  *
  * numYears in       r0
  * present val in    s0
@@ -61,22 +63,19 @@ futrVal:
  
      vmov s17, s16               /* copy s16 for multiplication */
 
-     mov r5, r4                  /* put counter in r5 */
-
-  ldr r0, =intMsg
-  mov r1, r5
-  bl printf
-
+     mov r5, #1                  /* put counter in r5 */
 
      powLoop:
-         cmp r5, #1
-         bne powLoop
+         cmp r5, r4
+         beq  finish 
          vmul.f32 s16, s17, s16
-         sub r5, r5, #1
+         add r5, r5, #1
+         b powLoop
 
+     finish:
      vadd.f32 s16, s16, s14
 
-     vmov s0, s16
+     vmov s0, s16             /* save in r0 for exit */
 
      vpop {s15-s18}
      pop {r4-r6, lr}
@@ -183,19 +182,19 @@ main:
      ldr r2, =rateIn
      vldr s1, [r2]
      ldr r1, =fvArray
-     bl fillArray     
-     @bl futrVal
+     @bl fillArray     
+     bl futrVal
 
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =fvArray
 @     bl printArray
 
-@     vmov s14, s0
-@     vcvt.f64.f32 d0, s14
-@     ldr r0, =tstMsg
-@     vmov r2, r3, d0
-@     bl printf
+     vmov s14, s0
+     vcvt.f64.f32 d0, s14
+     ldr r0, =tstMsg
+     vmov r2, r3, d0
+     bl printf
 
      pop {r4, r5, r6, lr}
      bx lr
