@@ -43,7 +43,6 @@ fvArray: .skip 100
 tstArray: 
        .float 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 
-
 .text
 
 /* Calculate the future value
@@ -106,6 +105,7 @@ fillArray:
 
     mov r6, #1                  /* r6 holds counter */
     add r8, r4, #1              /* ensure correct number of loops */
+    mov r7, #0
     fillLoop:
         cmp r6, r8
         beq exitFill
@@ -118,9 +118,11 @@ fillArray:
 
         vmov s15, s0             /* update  present value */
 
-        vmov r7, s15
-        str r7, [r5, r6, lsl#2]
+        @vmov r7, s15
+        vstr s15, [r5, r7]
+        @str r7, [r5, r6, lsl#2]
         add r6, r6, #1
+        add r7, r7, #4
         b fillLoop
 
     exitFill:
@@ -129,30 +131,32 @@ fillArray:
         bx lr
 
 /* print an array of floats
- * array in           r0
- * num of elements in r1
+ * num of elements in r0
+ * array in           r1
  */
 printArray:
     push {r4-r8, lr}
 
-    mov r4, r1                /* r4 is num elements */
-    mov r5, r0                /* r5 is array */
+    mov r4, r0                /* r4 is num elements */
+    mov r5, r1                /* r5 is array */
+
 
     mov r6, #1                /* r6 is counter */
-    mov r7, #0
+    mov r7, #0                /* offset for vldr */
     printLoop:
        cmp r6, r4
        beq exit
-       @ldr r8, [r5, r6, lsl#2]   /* get the number */
+
        vldr s8, [r5,r7]   /* get the number */
-       @vmov s2, r8 
+
         vcvt.f64.f32 d0, s8
         vmov r2, r3, d0
         ldr r0, =tstMsg
         bl printf
         add r6, r6, #1
-        add r7, r7, #4
-        bne printLoop
+        add r7, r7, #1
+
+        b printLoop
 
     exit:
        pop {r4-r8, lr}
@@ -191,12 +195,11 @@ main:
      vldr s1, [r2]
      ldr r1, =fvArray
      bl fillArray     
-     @bl futrVal
 
      ldr r0, =yrsIn
      ldr r0, [r0]
-@     ldr r1, =fvArray
-     ldr r0, =tstArray
+     ldr r1, =fvArray
+@     ldr r1, =tstArray
      bl printArray
 
      pop {r4, r5, r6, lr}
