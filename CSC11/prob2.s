@@ -62,6 +62,12 @@ futrVal:
      vmov s17, s16               /* copy s16 for multiplication */
 
      mov r5, r4                  /* put counter in r5 */
+
+  ldr r0, =intMsg
+  mov r1, r5
+  bl printf
+
+
      powLoop:
          cmp r5, #1
          bne powLoop
@@ -91,6 +97,11 @@ fillArray:
     vmov s15, s0                /* s14 holds present value */
     vmov s16, s1                /* s15 holds interest rate */
     mov r5, r1                  /* r5 holds the output array */
+
+  ldr r0, =intMsg
+  mov r1, r4
+  bl printf
+
 
     mov r6, #1                  /* r6 holds counter */
     fillLoop:
