@@ -9,13 +9,14 @@
 */
 .data
  
-messageM1: .asciz "\n\nMenu for the Midterm\n"
+messageM1: .asciz "\n\nMenu for the Final\n"
 messageM2: .asciz "Type 1 for problem 1\n"
 messageM3: .asciz "Type 2 for problem 2\n"
 messageM4: .asciz "Type 3 for problem 3\n"
+messageM7: .asciz "Type 4 for problem 4\n"
 messageM5: .asciz "Type anything else to exit \n\n"
 formatM:   .asciz "%d"
-messageM6: .asciz "The Midterm is Completed!!!\n"
+messageM6: .asciz "The Final is Completed!!!\n"
  
 .text
  
@@ -35,6 +36,8 @@ main:
 		bl printf                    /* Call printf */
 		ldr r0, ad_M4                
 		bl printf                    /* Call printf */
+		ldr r0, ad_M7                
+		bl printf                    /* Call printf */
 		ldr r0, ad_M5                
 		bl printf                    /* Call printf */
  
@@ -50,6 +53,8 @@ main:
 		beq p2
 		cmp r0,#3
 		beq p3
+		cmp r0,#4
+		beq p4
 		b end
     
 		p1:
@@ -62,6 +67,9 @@ main:
 	
 		p3:
 			bl problem3                  /* Call Problem3  */
+			b menu
+		p4:
+			bl problem4                  /* Call Problem4  */
 			b menu
  
 	end:
@@ -79,4 +87,5 @@ ad_M3: .word messageM3
 ad_M4: .word messageM4
 ad_M5: .word messageM5
 ad_M6: .word messageM6
+ad_M7: .word messageM7
 ad_fM: .word formatM

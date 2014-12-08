@@ -24,7 +24,7 @@ rateFrmt: .asciz "%f"
 pvFrmt: .asciz "%f"
 
 .balign 4
-tstMsg: .asciz "Futute Value is  %f\n"
+tstMsg: .asciz "Future Value is  %f\n"
 
 .balign 4
 intMsg: .asciz "Int is %d\n"
@@ -44,7 +44,6 @@ tstArray:
        .float 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 
 .text
-
 /* Calculate the future value
  * FV = PV*(1+i)^n
  * NOTE: doest not work when n is zero
@@ -157,9 +156,9 @@ printArray:
        pop {r4-r8, lr}
        bx lr
 
-.global main
-main:
-     push {r4, r5, r6, lr}
+.global problem2
+problem2:
+     push {r4, lr}
 
      /* Get the number of years */
      ldr r0, =yrsMsg
@@ -197,6 +196,6 @@ main:
      ldr r1, =fvArray
      bl printArray
 
-     pop {r4, r5, r6, lr}
+     pop {r4, lr}
      bx lr
 
