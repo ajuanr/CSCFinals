@@ -25,7 +25,7 @@ pvFrmt: .asciz "%f"
 
 
 .balign 4
-tstMsg: .asciz "power was %f\n"
+tstMsg: .asciz "Value is  %f\n"
 
 /* to calculate future value */
 .balign 4
@@ -67,7 +67,7 @@ futrVal:
      cmp r5, #1
      bne powLoop
 
-     @vadd.f32 s14, s14, s16
+     vadd.f32 s16, s16, s14
 
      vmov s0, s16
 
