@@ -97,13 +97,12 @@ fillArray:
     vmov s16, s1                /* s15 holds interest rate */
     mov r5, r1                  /* r5 holds the output array */
 
-  ldr r0, =intMsg
-  mov r1, r4
-  bl printf
-
-
     mov r6, #1                  /* r6 holds counter */
+    add r8, r4, #1              /* ensure correct number of loops */
     fillLoop:
+        cmp r6, r8
+        beq exitFill
+  
         /* calculate the future value */
         mov r0, r6 
         vmov s0, s15
@@ -111,6 +110,7 @@ fillArray:
         bl futrVal
 
         vmov s15, s0             /* update  present value*/
+
      vmov s14, s15
      vcvt.f64.f32 d0, s14
      ldr r0, =tstMsg
@@ -120,8 +120,9 @@ fillArray:
         vmov r7, s15
         str r7, [r5, r6, lsl#2]
         add r6, r6, #1
-        cmp r6, r4
-        bne fillLoop
+        b fillLoop
+
+    exitFill:
 
     vpop {s15, s16}
     pop {r4-r8, lr}
@@ -137,7 +138,7 @@ printArray:
     mov r4, r1                /* r4 is num elements */
     mov r5, r0                /* r5 is array */
 
-    mov r6, #0                /* r6 is counter */
+    mov r6, #1                /* r6 is counter */
     printLoop:
         ldr r8, [r5, r6, lsl#2]
         vmov s2, r8 
@@ -182,8 +183,8 @@ main:
      ldr r2, =rateIn
      vldr s1, [r2]
      ldr r1, =fvArray
-     @bl fillArray     
-     bl futrVal
+     bl fillArray     
+     @bl futrVal
 
      ldr r0, =yrsIn
      ldr r0, [r0]
@@ -194,7 +195,7 @@ main:
      vcvt.f64.f32 d0, s14
      ldr r0, =tstMsg
      vmov r2, r3, d0
-     bl printf
+@     bl printf
 
      pop {r4, r5, r6, lr}
      bx lr
