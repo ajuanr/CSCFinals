@@ -103,7 +103,6 @@ fillArray:
     mov r5, r1                  /* r5 holds the output array */
 
     mov r6, #0                  /* r6 holds counter */
-    mov r7, #0
     fillLoop:
         cmp r6, r4 
         beq exitFill
@@ -139,20 +138,20 @@ printArray:
     mov r6, #0                /* r6 is counter */
     printLoop:
        cmp r6, r4
-       beq exit
+       beq exitPrint
 
        ldr r8, [r5, r6, lsl#2]
        vmov s10, r8
 
-        vcvt.f64.f32 d0, s10
-        vmov r2, r3, d0
-        ldr r0, =tstMsg
-        bl printf
-        add r6, r6, #1
+       vcvt.f64.f32 d0, s10
+       vmov r2, r3, d0
+       ldr r0, =tstMsg
+       bl printf
+       add r6, r6, #1
 
-        b printLoop
+       b printLoop
 
-    exit:
+    exitPrint:
        pop {r4-r8, lr}
        bx lr
 
