@@ -30,14 +30,17 @@ problem3:
     bl printf
 
     ldr r0, =inFrmt
-    ldr r1, adr_inNum
+    ldr r1, =inNum  @adr_inNum
     bl scanf
 
     ldr r0, =numRead
-    ldr r1, adr_inNum
+    ldr r1, =inNum   @adr_inNum
     ldr r1, [r1]
     bl printf
 
+
+    ldr r1, =inNum
+    ldr r1, [r1]
     vmov s10, r1                 /* s10 holds the num S*/
 
     vcvt.f32.s32 s10, s10        /* convert number to float */

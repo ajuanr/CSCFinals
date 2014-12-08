@@ -17,6 +17,8 @@ messageM7: .asciz "Type 4 for problem 4\n"
 messageM5: .asciz "Type anything else to exit \n\n"
 formatM:   .asciz "%d"
 messageM6: .asciz "The Final is Completed!!!\n"
+
+choice: .word 0
  
 .text
  
