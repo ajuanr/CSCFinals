@@ -24,7 +24,7 @@ rateFrmt: .asciz "%f"
 pvFrmt: .asciz "%f"
 
 .balign 4
-tstMsg: .asciz "Value is  %f\n"
+tstMsg: .asciz "Futute Value is  %f\n"
 
 .balign 4
 intMsg: .asciz "Int is %d\n"
