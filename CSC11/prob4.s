@@ -19,7 +19,7 @@ main:
     ldr r0, =msg
     bl printf
 
-    ldr r0, =xFrmt
+ ldr r0, =xFrmt
     mov r1, sp
     bl scanf
 
@@ -40,13 +40,11 @@ main:
 
     add r0, r0, r4             /*                20 bits, BP- 2 */
 
-    mov r0, r0, lsr#1
+    mov r0, r0, lsr#2
 
     mov r1, r0
     ldr r0, =rsltMsg
-    @ldr r1, [sp]
     bl printf
-
 
     pop {r4, lr}
     bx lr
