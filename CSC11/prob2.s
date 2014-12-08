@@ -37,6 +37,13 @@ one: .float 1.0
 .balign 4
 fvArray: .skip 100
 
+
+/* test array */
+.balign 4
+tstArray: 
+       .float 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+
+
 .text
 
 /* Calculate the future value
@@ -109,7 +116,7 @@ fillArray:
         vmov s1, s16
         bl futrVal
 
-        vmov s15, s0             /* update  present value*/
+        vmov s15, s0             /* update  present value */
 
         vmov r7, s15
         str r7, [r5, r6, lsl#2]
@@ -132,16 +139,19 @@ printArray:
     mov r5, r0                /* r5 is array */
 
     mov r6, #1                /* r6 is counter */
+    mov r7, #0
     printLoop:
        cmp r6, r4
        beq exit
-       ldr r8, [r5, r6, lsl#2]   /* get the number */
-       vmov s2, r8 
- @       vcvt.f32.f32 s2, s2    /* convert for printing */
-        vcvt.f64.f32 d0, s2
+       @ldr r8, [r5, r6, lsl#2]   /* get the number */
+       vldr s8, [r5,r7]   /* get the number */
+       @vmov s2, r8 
+        vcvt.f64.f32 d0, s8
         vmov r2, r3, d0
         ldr r0, =tstMsg
+        bl printf
         add r6, r6, #1
+        add r7, r7, #4
         bne printLoop
 
     exit:
@@ -185,7 +195,8 @@ main:
 
      ldr r0, =yrsIn
      ldr r0, [r0]
-     ldr r1, =fvArray
+@     ldr r1, =fvArray
+     ldr r0, =tstArray
      bl printArray
 
      pop {r4, r5, r6, lr}
