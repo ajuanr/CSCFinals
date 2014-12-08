@@ -90,7 +90,7 @@ futrVal:
  */ 
 fillArray:
     push {r4-r8, lr}
-    vpush {s15, s16}
+    vpush {s16}
 
     mov r4, r0                  /* r4 holds the number of years */
     vmov s15, s0                /* s14 holds present value */
@@ -111,22 +111,15 @@ fillArray:
 
         vmov s15, s0             /* update  present value*/
 
-     vmov s14, s15
-     vcvt.f64.f32 d0, s14
-     ldr r0, =tstMsg
-     vmov r2, r3, d0
-     bl printf
-/*   */
         vmov r7, s15
         str r7, [r5, r6, lsl#2]
         add r6, r6, #1
         b fillLoop
 
     exitFill:
-
-    vpop {s15, s16}
-    pop {r4-r8, lr}
-    bx lr
+        vpop {s16}
+        pop {r4-r8, lr}
+        bx lr
 
 /* print an array of floats
  * array in           r0
@@ -140,16 +133,20 @@ printArray:
 
     mov r6, #1                /* r6 is counter */
     printLoop:
-        ldr r8, [r5, r6, lsl#2]
-        vmov s2, r8 
+       cmp r6, r4
+       beq exit
+       ldr r8, [r5, r6, lsl#2]   /* get the number */
+       vmov s2, r8 
+ @       vcvt.f32.f32 s2, s2    /* convert for printing */
         vcvt.f64.f32 d0, s2
         vmov r2, r3, d0
         ldr r0, =tstMsg
         add r6, r6, #1
         bne printLoop
 
-    pop {r4-r8, lr}
-    bx lr
+    exit:
+       pop {r4-r8, lr}
+       bx lr
 
 .global main
 main:
@@ -189,13 +186,7 @@ main:
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =fvArray
-@     bl printArray
-
-     vmov s14, s0
-     vcvt.f64.f32 d0, s14
-     ldr r0, =tstMsg
-     vmov r2, r3, d0
-@     bl printf
+     bl printArray
 
      pop {r4, r5, r6, lr}
      bx lr
