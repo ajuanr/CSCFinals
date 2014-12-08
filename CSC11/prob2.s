@@ -112,14 +112,12 @@ fillArray:
         bl futrVal
 
         vmov s15, s0             /* update  present value*/
-
      vmov s14, s15
      vcvt.f64.f32 d0, s14
      ldr r0, =tstMsg
      vmov r2, r3, d0
      bl printf
 /*   */
-
         vmov r7, s15
         str r7, [r5, r6, lsl#2]
         add r6, r6, #1
