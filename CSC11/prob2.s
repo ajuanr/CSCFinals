@@ -71,7 +71,7 @@ futrVal:
 
      mov r5, #1                  /* put counter in r5 */
 
-     powLoop:
+     powLoop:                    /* (1+i)^n */
          cmp r5, r4
          beq  finish 
          vmul.f32 s16, s17, s16
@@ -81,7 +81,7 @@ futrVal:
      finish:
      vadd.f32 s16, s16, s14
 
-     vmov s0, s16             /* save in r0 for exit */
+     vmov s0, s16                 /* save in r0 for exit */
 
      vpop {s15-s18}
      pop {r4-r6, lr}
@@ -106,11 +106,11 @@ fillArray:
     mov r6, #0                  /* r6 holds counter */
     mov r7, #0
     fillLoop:
-        cmp r6, r4      @ cmp r6, r8
+        cmp r6, r4 
         beq exitFill
   
         /* calculate the future value */
-        add r0, r6, #1          @mov r0, r6 
+        add r0, r6, #1 
         vmov s0, s15
         vmov s1, s16
         bl futrVal
@@ -141,7 +141,6 @@ printArray:
     printLoop:
        cmp r6, r4
        beq exit
-      @ vldr s8, [r5,r7]   /* get the number */
 
        ldr r8, [r5, r6, lsl#2]
        vmov s10, r8
@@ -183,6 +182,7 @@ main:
      ldr r1, =pvIn
      bl scanf
 
+
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =pvIn
@@ -195,7 +195,6 @@ main:
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =fvArray
-@     ldr r1, =tstArray
      bl printArray
 
      pop {r4, r5, r6, lr}
