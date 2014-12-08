@@ -23,7 +23,6 @@ rateFrmt: .asciz "%f"
 .balign 4
 pvFrmt: .asciz "%f"
 
-
 .balign 4
 tstMsg: .asciz "Value is  %f\n"
 
@@ -44,9 +43,8 @@ fvArray: .skip 100
  * rate in           s1
  * return fv in      s0
  */
-
 futrVal:
-     push {r4-r10, lr}
+     push {r4-r6, lr}
      vpush {s15-s18}
 
      mov r4, r0                  /* r4 holds the number of years */
@@ -72,9 +70,65 @@ futrVal:
      vmov s0, s16
 
      vpop {s15-s18}
-     pop {r4-r10, lr}
+     pop {r4-r6, lr}
      bx lr
+/* exit futrVal */
 
+/* Fill the array with future values
+ * numYears in       r0
+ * present val in    s0
+ * rate in           s1
+ * array in          r1
+ */ 
+fillArray:
+    push {r4-r8, lr}
+    vpush {s15, s16}
+
+    mov r4, r0                  /* r4 holds the number of years */
+    vmov s15, s0                /* s14 holds present value */
+    vmov s16, s1                /* s15 holds interest rate */
+    mov r5, r1                  /* r5 holds the output array */
+
+    mov r6, #0                  /* r6 holds counter */
+    fillLoop:
+        /* calculate the future value */
+        mov r0, r6 
+        vmov s0, s15
+        vmov s1, s16
+        bl futrVal
+
+        vmov s15, s0             /* change the current present value*/
+        vmov r7, s15
+
+    str r7, [r5, r6, lsl#2]
+    add r6, r6, #1
+    cmp r6, r4
+    bne fillLoop
+
+    vpop {s15, s16}
+    pop {r4-r8, lr}
+    bx lr
+
+/* print an array of floats
+ * array in           r0
+ * num of elements in r1
+ */
+printArray:
+    push {r4-r8, lr}
+
+    mov r4, r1                /* r4 is num elements */
+    mov r5, r0                /* r5 is array */
+
+    mov r6, #0                /* r6 is counter */
+    printLoop:
+        ldr r8, [r5, r6, lsl#2]
+        vmov s2, r8 
+        vcvt.f64.f32 d0, s2
+        vmov r2, r3, d0
+        ldr r0, =tstMsg
+
+    pop {r4-r8, lr}
+    bx lr
 
 .global main
 main:
@@ -107,7 +161,13 @@ main:
      vldr s0,[r1]
      ldr r2, =rateIn
      vldr s1, [r2]
+     ldr r1, =fvArray
      bl futrVal
+
+     ldr r0, =yrsIn
+     ldr r0, [r0]
+     ldr r1, =fvArray
+     bl printArray
 
      vmov s14, s0
      vcvt.f64.f32 d0, s14
