@@ -62,17 +62,11 @@ futrVal:
      vmov s17, s16               /* copy s16 for multiplication */
 
      mov r5, r4                  /* put counter in r5 */
-
-
-  ldr r0, = intMsg
-  mov r1, r5
-  bl printf
-
      powLoop:
-         vmul.f32 s16, s17, s16
-         sub r5, r5, #1
          cmp r5, #1
          bne powLoop
+         vmul.f32 s16, s17, s16
+         sub r5, r5, #1
 
      vadd.f32 s16, s16, s14
 
@@ -98,20 +92,15 @@ fillArray:
     vmov s16, s1                /* s15 holds interest rate */
     mov r5, r1                  /* r5 holds the output array */
 
-
-
-    mov r6, #0                  /* r6 holds counter */
-    @fillLoop:
+    mov r6, #1                  /* r6 holds counter */
+    fillLoop:
         /* calculate the future value */
-
-
         mov r0, r6 
         vmov s0, s15
         vmov s1, s16
         bl futrVal
 
         vmov s15, s0             /* update  present value*/
-
 
      vmov s14, s15
      vcvt.f64.f32 d0, s14
@@ -120,12 +109,11 @@ fillArray:
      bl printf
 /*   */
 
-
         vmov r7, s15
         str r7, [r5, r6, lsl#2]
         add r6, r6, #1
         cmp r6, r4
-    @    bne fillLoop
+        bne fillLoop
 
     vpop {s15, s16}
     pop {r4-r8, lr}
