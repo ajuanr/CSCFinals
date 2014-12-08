@@ -181,7 +181,7 @@ problem2:
      ldr r1, =pvIn
      bl scanf
 
-
+     /* fill the array */
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =pvIn
@@ -191,6 +191,7 @@ problem2:
      ldr r1, =fvArray
      bl fillArray     
 
+     /* print the array */
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =fvArray
