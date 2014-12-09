@@ -7,9 +7,11 @@
 //
 
 #include <iostream>
+#include <Prob1Random.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    char n=5;
+    char rndseq[]={16,34,57,79,144};
+    
     return 0;
 }
