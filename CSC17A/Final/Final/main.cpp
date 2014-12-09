@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include <Prob1Random.h"
+#include "Prob1Random.h"
 
 int main(int argc, const char * argv[]) {
     char n=5;
