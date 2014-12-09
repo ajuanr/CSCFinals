@@ -147,6 +147,7 @@ printArray:
        vmov r2, r3, d0
        ldr r0, =tstMsg
        bl printf
+
        add r6, r6, #1
 
        b printLoop
