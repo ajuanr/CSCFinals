@@ -17,7 +17,7 @@ private:
     int  *freq;     //Frequency of all the random numbers returned
     int   numRand;  //The total number of times the random number function is called
 public:
-    Prob1Random(const char,const char *);     //Constructor
+    Prob1Random(const char,const unsigned char *);     //Constructor
     ~Prob1Random(void);                       //Destructor
     char randFromSet(void);                   //Returns a random number from the set
     int *getFreq(void) const;                 //Returns the frequency histogram

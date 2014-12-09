@@ -7,23 +7,58 @@
 //
 
 #include "Prob1Random.h"
-#include <sstream>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <map>
 
 using namespace std;
 
-Prob1Random::Prob1Random(const char n, const char *set) {
-    stringstream charN;
-    charN << n;
-    
+Prob1Random::Prob1Random(const char n, const unsigned char *set) {
     nset = n;
     
     
-    this->set = new char[nset-48];
+    this->set = new char[n];
     
     // copy the set into member variable
-    for (int i = 0; i != nset-48; ++i) {
+    for (int i = 0; i != nset; ++i)
         this->set[i] = set[i];
-        cout << this->set[i];
+    
+    numRand = 0;
+    map<char, int> mapFreq;
+    for (int i = 0; i != 10000; ++i) {
+        ++numRand;
+        mapFreq[randFromSet()]++;
     }
+    
+    // copy these values into frequence array
+    int i = 0;
+    freq = new int [nset];
+    for (map<char,int>::const_iterator iter = mapFreq.begin();
+         iter != mapFreq.end(); ++iter) {
+        //cout << iter->second<< " ";
+        freq[i] = iter->second;
+        ++i;
+    }
+}
+
+Prob1Random::~Prob1Random() {
+    delete []set;
+}
+
+
+char Prob1Random::randFromSet() {
+    return set[rand()%nset];
+}
+
+int * Prob1Random::getFreq() const {
+    return freq;
+}
+
+char * Prob1Random::getSet() const{
+    return set;
+}
+
+int Prob1Random::getNumRand() const {
+    return numRand;
 }
