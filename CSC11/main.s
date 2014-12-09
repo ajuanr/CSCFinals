@@ -4,7 +4,7 @@
 	gcc -c prob3.s
         gcc -c prob4.s
         gcc -c divMod.s
-	gcc prob1.o prob2.o prob3.o prob4.o divMod.o main.s -o mdTrm
+	gcc prob1.o prob2.o prob3.o prob4.o divMod.o main.s -o final
 	./mdTrm
 */
 .data

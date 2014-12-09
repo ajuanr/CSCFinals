@@ -1,8 +1,11 @@
 .data
+.balign 4
 inFrmt: .asciz "%d"
 
+.balign 4
 inNum: .word 0
 
+.balign 4
 rtMsg: .asciz "Enter number(1-10,000) whose root you want: "
 
 .balign 4
@@ -19,23 +22,24 @@ half: .float 0.5
 xNot: .float 50
 
 .text
-.global main
-main:
-    push {r4,r5, r6, lr}
+.global problem3
+problem3:
+    push {r4, r5, r6, lr}
 
     ldr r0, =rtMsg
     bl printf
 
     ldr r0, =inFrmt
-    ldr r1, adr_inNum
+    ldr r1, =inNum  @adr_inNum
     bl scanf
 
     ldr r0, =numRead
-    ldr r1, adr_inNum
+    ldr r1, =inNum   @adr_inNum
     ldr r1, [r1]
     bl printf
 
-    ldr r1, adr_inNum
+
+    ldr r1, =inNum
     ldr r1, [r1]
     vmov s10, r1                 /* s10 holds the num S*/
 
@@ -43,7 +47,6 @@ main:
 
     ldr r0, =half
     vldr s11, [r0]               /* s11 holds 1/2 */
-
 
     mov r5, #10                   /* r5 holds counter */
     bLoop:
@@ -65,7 +68,6 @@ main:
       
     /* for printing */
     vcvt.f64.f32 d0, s12
-
     vmov r2, r3, d0
     ldr r0, =rootIs
     bl printf

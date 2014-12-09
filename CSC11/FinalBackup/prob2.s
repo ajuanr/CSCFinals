@@ -24,7 +24,7 @@ rateFrmt: .asciz "%f"
 pvFrmt: .asciz "%f"
 
 .balign 4
-tstMsg: .asciz "Futute Value is  %f\n"
+tstMsg: .asciz "Future Value is  %f\n"
 
 .balign 4
 intMsg: .asciz "Int is %d\n"
@@ -44,7 +44,6 @@ tstArray:
        .float 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
 
 .text
-
 /* Calculate the future value
  * FV = PV*(1+i)^n
  * NOTE: doest not work when n is zero
@@ -104,7 +103,6 @@ fillArray:
     mov r5, r1                  /* r5 holds the output array */
 
     mov r6, #0                  /* r6 holds counter */
-    mov r7, #0
     fillLoop:
         cmp r6, r4 
         beq exitFill
@@ -140,40 +138,44 @@ printArray:
     mov r6, #0                /* r6 is counter */
     printLoop:
        cmp r6, r4
-       beq exit
+       beq exitPrint
 
        ldr r8, [r5, r6, lsl#2]
        vmov s10, r8
 
-        vcvt.f64.f32 d0, s10
-        vmov r2, r3, d0
-        ldr r0, =tstMsg
-        bl printf
-        add r6, r6, #1
+       vcvt.f64.f32 d0, s10
+       vmov r2, r3, d0
+       ldr r0, =tstMsg
+       bl printf
 
-        b printLoop
+       add r6, r6, #1
 
-    exit:
+       b printLoop
+
+    exitPrint:
        pop {r4-r8, lr}
        bx lr
 
-.global main
-main:
-     push {r4, r5, r6, lr}
+.global problem2
+problem2:
+     push {r4, lr}
 
      /* Get the number of years */
-     ldr r0, =yrsMsg
+     ldr r0, adr_yrsMsg   @=yrsMsg
      bl printf
-     ldr r0, =yrsFrmt
-     ldr r1, =yrsIn
+     ldr r0, adr_yrsFrmt  @=yrsFrmt
+     ldr r1, adr_yrsIn    @=yrsIn
      bl scanf
 
+
+
      /* Get the interest */
-     ldr r0, =rateMsg
+     ldr r0, adr_rateMsg
      bl printf
-     ldr r0, =rateFrmt
-     ldr r1, =rateIn
+     ldr r0, adr_rateFrmt
+     ldr r1, adr_rateIn
      bl scanf 
+
 
      /* Get the present value */
      ldr r0, =pvMsg
@@ -182,7 +184,7 @@ main:
      ldr r1, =pvIn
      bl scanf
 
-
+     /* fill the array */
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =pvIn
@@ -192,11 +194,18 @@ main:
      ldr r1, =fvArray
      bl fillArray     
 
+     /* print the array */
      ldr r0, =yrsIn
      ldr r0, [r0]
      ldr r1, =fvArray
      bl printArray
 
-     pop {r4, r5, r6, lr}
+     pop {r4, lr}
      bx lr
 
+adr_yrsMsg: .word yrsMsg
+adr_yrsFrmt: .word yrsFrmt
+adr_yrsIn: .word yrsIn
+adr_rateMsg: .word rateMsg
+adr_rateFrmt: .word rateFrmt
+adr_rateIn: .word rateIn
