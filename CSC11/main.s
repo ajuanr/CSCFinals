@@ -18,13 +18,11 @@ messageM5: .asciz "Type anything else to exit \n\n"
 formatM:   .asciz "%d"
 messageM6: .asciz "The Final is Completed!!!\n"
 
-choice: .word 0
- 
 .text
  
 .globl main
 main:
-    push {r4,lr}                 /* str lr, [sp,#-4]! Push lr onto the top of the stack */
+    push {lr}                 /* str lr, [sp,#-4]! Push lr onto the top of the stack */
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
                                  /* In these 4 bytes we will keep the number */
                                  /* entered by the user */
@@ -80,7 +78,7 @@ main:
     bl printf                    /* Call printf */
  
     add sp, sp, #+4              /* Discard the integer read by scanf */
-    pop {r4,lr}                  /* ldr lr, [sp], #+4 Pop the top of the stack and put it in lr */
+    pop {lr}                  /* ldr lr, [sp], #+4 Pop the top of the stack and put it in lr */
     bx lr                        /* Leave main */
  
 ad_M1: .word messageM1

@@ -161,18 +161,28 @@ problem2:
      push {r4, lr}
 
      /* Get the number of years */
-     ldr r0, =yrsMsg
+     ldr r0, adr_yrsMsg   @=yrsMsg
      bl printf
-     ldr r0, =yrsFrmt
-     ldr r1, =yrsIn
+     ldr r0, adr_yrsFrmt  @=yrsFrmt
+     ldr r1, adr_yrsIn    @=yrsIn
      bl scanf
 
+
+
      /* Get the interest */
-     ldr r0, =rateMsg
+     ldr r0, adr_rateMsg
      bl printf
-     ldr r0, =rateFrmt
-     ldr r1, =rateIn
+     ldr r0, adr_rateFrmt
+     ldr r1, adr_rateIn
      bl scanf 
+
+
+       ldr r0, adr_rateIn
+       vldr s10, [r0]
+       vcvt.f64.f32 d0, s10
+       vmov r2, r3, d0
+       ldr r0, =tstMsg
+       bl printf
 
      /* Get the present value */
      ldr r0, =pvMsg
@@ -200,3 +210,9 @@ problem2:
      pop {r4, lr}
      bx lr
 
+adr_yrsMsg: .word yrsMsg
+adr_yrsFrmt: .word yrsFrmt
+adr_yrsIn: .word yrsIn
+adr_rateMsg: .word rateMsg
+adr_rateFrmt: .word rateFrmt
+adr_rateIn: .word rateIn
