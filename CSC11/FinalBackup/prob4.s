@@ -12,8 +12,8 @@ xIn: .word 0
 rsltMsg: .asciz "The value ax^2 + bx is %d\n"
 
 .text
-.global main
-main:
+.global problem4
+problem4:
     push {r4, lr}
 
     ldr r0, =msg

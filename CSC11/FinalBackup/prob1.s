@@ -58,8 +58,8 @@ random:
     bx lr                             /* Leave main */
 /* Exit random number generator */
 
-.global main
-main:
+.global problem1
+problem1:
     push {r4, lr}
 
     /* seed the random number generator */
