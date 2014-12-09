@@ -45,13 +45,6 @@ problem3:
 
     vcvt.f32.s32 s10, s10        /* convert number to float */
 
-
-    /* for printing */
-    vcvt.f64.f32 d0, s12
-    vmov r2, r3, d0
-    ldr r0, =rootIs
-    bl printf
-
     ldr r0, =half
     vldr s11, [r0]               /* s11 holds 1/2 */
 

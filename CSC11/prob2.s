@@ -177,13 +177,6 @@ problem2:
      bl scanf 
 
 
-       ldr r0, adr_rateIn
-       vldr s10, [r0]
-       vcvt.f64.f32 d0, s10
-       vmov r2, r3, d0
-       ldr r0, =tstMsg
-       bl printf
-
      /* Get the present value */
      ldr r0, =pvMsg
      bl printf

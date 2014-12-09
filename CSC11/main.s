@@ -26,7 +26,6 @@ main:
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
                                  /* In these 4 bytes we will keep the number */
                                  /* entered by the user */
-                                 /* Note that after that the stack is 8-byte aligned */
 	menu:
 		ldr r0, ad_M1                
 		bl printf                    /* Call printf */
