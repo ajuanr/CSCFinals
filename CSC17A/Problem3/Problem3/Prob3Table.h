@@ -9,6 +9,9 @@
 #ifndef Problem3_Prob3Table_h
 #define Problem3_Prob3Table_h
 
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 template<class T>
 class Prob3Table
@@ -29,5 +32,26 @@ public:
     const T *getColSum(void){return colSum;};
     T getGrandTotal(void){return grandTotal;};
 };
+
+template<class T>
+Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
+    fstream inFile;
+    inFile.open(file);
+    if (!inFile.is_open()) cout << "File failed to open";
+    
+    table = new T [nRows*nCols];
+    rowSum = new T [nRows];
+    colSum = new T [nCols];
+    
+    // fill the table
+    for (int i = 0; i != nRows; ++i) {
+        for (int j = 0; j != nCols; ++j) {
+            inFile >> table[i+nCols + j];
+            cout << table[i+nCols + j] <<" ";
+
+        }
+        cout << endl;
+    }
+}
 
 #endif
