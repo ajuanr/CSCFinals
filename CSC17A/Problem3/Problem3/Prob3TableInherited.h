@@ -22,4 +22,10 @@ public:
     const T *getAugTable(void){return augTable;};
 };
 
+template<class T>
+Prob3TableInherited<T>::Prob3TableInherited(char *file, int nRows, int nCols)
+:Prob3Table<T>(file, nRows, nCols) {
+    
+}
+
 #endif

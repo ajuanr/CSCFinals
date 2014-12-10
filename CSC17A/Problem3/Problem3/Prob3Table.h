@@ -35,6 +35,9 @@ public:
 
 template<class T>
 Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
+    rows = nRows;
+    cols = nCols;
+    
     fstream inFile;
     inFile.open(file);
     if (!inFile.is_open()) cout << "File failed to open";
@@ -43,15 +46,38 @@ Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
     rowSum = new T [nRows];
     colSum = new T [nCols];
     
+    int cSum = 0;       // column sum
+    int rSum = 0;
+    
     // fill the table
-    for (int i = 0; i != nRows; ++i) {
-        for (int j = 0; j != nCols; ++j) {
-            inFile >> table[i+nCols + j];
-            cout << table[i+nCols + j] <<" ";
-
+    for (int row = 0; row != nRows; ++row) {
+        for (int col = 0; col != nCols; ++col) {
+            inFile >> table[row*nCols + col];
+            cout << table[row*nCols + col] << " ";
         }
         cout << endl;
     }
+    cout << endl;
+    
+    int currentColumn = 0;
+    for (int row = 0; row != nRows; ++row) {
+        for (int col = 0; col != nCols; ++col) {
+            rSum += table[row*nCols + col];
+            if (col != nCols-1)
+                cSum += table[col*nCols + row];
+        }
+        rowSum[row] = rSum;
+        colSum[currentColumn++] = cSum;
+        //
+        rSum = 0;
+        cSum = 0;
+    }
+    
+    for (int i = 0; i != nCols; ++i) {
+        cout << colSum[i] << " ";
+    }
+    cout << endl;
+
 }
 
 #endif
