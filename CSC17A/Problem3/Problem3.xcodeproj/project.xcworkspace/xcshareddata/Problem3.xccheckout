@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2F262026-0E71-42D1-9AB8-C01DD4005E85</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Problem3</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>545FFE141DF0F37A0CF30C2A57758089721FCC8A</key>
+		<string>https://github.com/ajuanr/CSCFinals.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CSC17A/Problem3/Problem3.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>545FFE141DF0F37A0CF30C2A57758089721FCC8A</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ajuanr/CSCFinals.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>545FFE141DF0F37A0CF30C2A57758089721FCC8A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>545FFE141DF0F37A0CF30C2A57758089721FCC8A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CSCFinals</string>
+		</dict>
+	</array>
+</dict>
+</plist>
