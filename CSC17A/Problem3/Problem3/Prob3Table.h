@@ -53,7 +53,6 @@ Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
     for (int row = 0; row != nRows; ++row) {
         for (int col = 0; col != nCols; ++col) {
             inFile >> table[row*nCols + col];
-            cout << table[row*nCols + col] << " ";
         }
         cout << endl;
     }
@@ -68,15 +67,9 @@ Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
         }
         rowSum[row] = rSum;
         colSum[currentColumn++] = cSum;
-        //
         rSum = 0;
         cSum = 0;
     }
-    
-    for (int i = 0; i != nCols; ++i) {
-        cout << colSum[i] << " ";
-    }
-    cout << endl;
 
 }
 

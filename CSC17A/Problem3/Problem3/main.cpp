@@ -14,9 +14,9 @@ int main(int argc, const char * argv[]) {
     cout<<"Entering problem number 3"<<endl;
     int rows=5;
     int cols=6;
-    Prob3Table<int> tab("Problem3.txt",rows,cols);
+    //Prob3Table<int> tab("Problem3.txt",rows,cols);
 
-//    Prob3TableInherited<int> tab("Problem3.txt",rows,cols);
+    Prob3TableInherited<int> tab("Problem3.txt",rows,cols);
 //    const int *naugT=tab.getTable();
 //    for(int i=0;i<rows;i++)
 //    {
