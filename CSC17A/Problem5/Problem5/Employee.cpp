@@ -26,3 +26,20 @@ Employee::Employee(char name[], char job[], float rate)
 
     HourlyRate = rate;
 }
+
+int  Employee::setHoursWorked(int hours) {
+    if (hours >=0 ) {
+        HoursWorked = hours;
+        return HoursWorked;
+    }
+    cout << "Unacceptable hours worked\n";
+    return HoursWorked;
+}
+float Employee::setHourlyRate(float rate) {
+    if( rate > 0) {
+        HourlyRate = rate;
+        return HourlyRate;
+    }
+    cout << "Unacceptable hourly rate\n";
+    return HourlyRate;
+}
