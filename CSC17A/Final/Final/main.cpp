@@ -15,6 +15,9 @@
 
 using namespace std;
 
+void Menu();
+int getN();
+void def(int);
 void Problem1();
 void Problem2();
 void Problem3();
@@ -23,8 +26,43 @@ void Problem5();
 
 int main(int argc, const char * argv[]) {
     srand(static_cast<unsigned int>(time(0)));
-    Problem5();
+    
+    int inN;
+    do{
+        Menu();
+        inN=getN();
+        switch(inN){
+            case 1:    Problem1();cout << endl;break;
+            case 2:    Problem2();cout << endl;break;
+            case 3:    Problem3();cout << endl;break;
+            case 4:    Problem4();cout << endl;break;
+            case 5:    Problem5();cout << endl;break;
+            default:   def(inN);
+        }
+    } while(inN<6);
+    
     return 0;
+}
+
+void Menu()
+{
+    cout<<"Type 1 for problem 2"<<endl;
+    cout<<"Type 2 for problem 4"<<endl;
+    cout<<"Type 3 for problem 10"<<endl;
+    cout<<"Type 4 for problem 13"<<endl;
+    cout<<"Type 5 for problem 15"<<endl;
+    cout<<"Type 6 to exit \n"<<endl;
+}
+int getN()
+{
+    int inN;
+    cin>>inN;
+    return inN;
+}
+
+void def(int inN)
+{
+    cout<<"You typed "<<inN<<" to exit the program"<<endl;
 }
 
 void Problem1() {
