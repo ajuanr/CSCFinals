@@ -23,11 +23,12 @@ void Problem5();
 
 int main(int argc, const char * argv[]) {
     srand(static_cast<unsigned int>(time(0)));
-    Problem3();
+    Problem5();
     return 0;
 }
 
 void Problem1() {
+    cout << "Entering problem 1\n";
     char n=5;
     unsigned char rndseq[]={16,34,57,79,144};
     int ntimes=100000;
@@ -123,9 +124,47 @@ void Problem3() {
 }
 
 void Problem4() {
+    cout << "Entering Problem 4\n";
+    SavingsAccount mine(-300);
     
+    for(int i=1;i<=10;i++)
+    {
+        mine.Transaction((float)(rand()%500)*(rand()%3-1));
+    }
+    mine.toString();
+    cout<<"Balance after 7 years given 10% interest = "
+    <<mine.Total((float)(0.10),7)<<endl;
+    //    cout<<"Balance after 7 years given 10% interest = "
+    //    <<mine.TotalRecursive((float)(0.10),7)
+    //    <<" Recursive Calculation "<<endl;
 }
 
 void Problem5() {
+    cout << "Entering Problem 5\n";
+    
+    Employee Mark("Mark","Boss",215.50);
+    Mark.setHoursWorked(-3);
+    Mark.toString();
+    Mark.CalculatePay(Mark.setHourlyRate(20.0),
+                      Mark.setHoursWorked(25));
+    Mark.toString();
+    Mark.CalculatePay(Mark.setHourlyRate(40.0),
+                      Mark.setHoursWorked(25));
+    Mark.toString();
+    Mark.CalculatePay(Mark.setHourlyRate(60.0),
+                      Mark.setHoursWorked(25));
+    Mark.toString();
+    
+    Employee Mary("Mary","VP",50.0);
+    Mary.toString();
+    Mary.CalculatePay(Mary.setHourlyRate(50.0),
+                      Mary.setHoursWorked(40));
+    Mary.toString();
+    Mary.CalculatePay(Mary.setHourlyRate(50.0),
+                      Mary.setHoursWorked(50));
+    Mary.toString();
+    Mary.CalculatePay(Mary.setHourlyRate(50.0),
+                      Mary.setHoursWorked(60));
+    Mary.toString();
     
 }
