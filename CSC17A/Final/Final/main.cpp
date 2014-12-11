@@ -8,21 +8,35 @@
 
 #include <iostream>
 #include "Prob1Random.h"
+#include "Prob2Sort.h"
+#include "Prob3TableInherited.h"
+#include "SavingsAccount.h"
+#include "Employee.h"
 
 using namespace std;
 
+void Problem1();
+void Problem2();
+void Problem3();
+void Problem4();
+void Problem5();
+
 int main(int argc, const char * argv[]) {
     srand(static_cast<unsigned int>(time(0)));
+    Problem3();
+    return 0;
+}
+
+void Problem1() {
     char n=5;
     unsigned char rndseq[]={16,34,57,79,144};
     int ntimes=100000;
     Prob1Random a(n,rndseq);
-//    
-//    for (int i = 0; i != n; ++i) {
-//        cout << a.randFromSet() <<" ";//static_cast<int>(a.randFromSet()) << " ";
-//        //cout << rndseq[i]+ 1 - 1 << endl;
-//    }
-//    cout << endl;
+    
+        for (int i = 0; i != n; ++i) {
+            cout << a.randFromSet() <<" ";
+        }
+        cout << endl;
     
     for(int i=1;i<=ntimes;i++)
     {
@@ -36,8 +50,82 @@ int main(int argc, const char * argv[]) {
     }
     cout<<"The total number of random numbers is "<<a.getNumRand()<<endl;
     
+    cout << endl;
+}
+
+void Problem2() {
+    cout << "Entering Problem 2\n";
+    Prob2Sort<char> rc;
+    bool ascending = true;
     
     
+    ifstream infile;
+    infile.open("Problem2.txt",ios::in);
+    if (infile.is_open()) {cout << "Success\n";}
+    else cout << "Failed\n";
+    
+    char *ch2=new char[10*16];
+    char *ch2p=ch2;
+    int counter = 0;
+    while(infile.get(*ch2)){
+        cout<<*ch2;ch2++;
+        if (++counter %15 == 0) cout << endl;
+    }
+    cout << endl;
+    cout<<"Sorting on which column"<<endl;
+    int column;
+    cin>>column;
+    char *zc=rc.sortArray(ch2p,10, 15, column,ascending);
+    cout << endl;
+    counter = 0;
+    
+    for(int i=0;i<10;i++)
+    {
+        for(int j=0;j<15;j++)
+        {
+            cout<<zc[i*15+j];
+        }
         cout << endl;
-    return 0;
+    }
+    delete []zc;
+    cout<<endl;
+    
+    infile.close();
+    cout << endl;
+}
+
+void Problem3() {
+    cout<<"Entering problem number 3"<<endl;
+    int rows=5;
+    int cols=6;
+    //Prob3Table<int> tab("Problem3.txt",rows,cols);
+    
+    Prob3TableInherited<int> tab("Problem3.txt",rows,cols);
+    const int *naugT=tab.getTable();
+    for(int i=0;i<rows;i++)
+    {
+        for(int j=0;j<cols;j++)
+        {
+            cout<<naugT[i*cols+j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    const int *augT=tab.getAugTable();
+    for(int i=0;i<=rows;i++)
+    {
+        for(int j=0;j<=cols;j++)
+        {
+            cout<<augT[i*(cols)+j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+void Problem4() {
+    
+}
+
+void Problem5() {
+    
 }
