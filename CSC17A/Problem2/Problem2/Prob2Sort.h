@@ -31,23 +31,33 @@ public:
 template<class T>
 T * Prob2Sort<T>::sortArray(const T* array, int col, bool desc) {
     // copy the array into the index
-    int colSize =16;
+    int colSize =15;
     int rowSize = 10;
+    
+    if (col > colSize-1)
+        col = 0;
     T *out = new T [rowSize*colSize];
     for (int i = 0; i != 150; ++i) {
         out[i] = array[i];
     }
+    /* this might be the problem section */
+    for (int nLoops =0; nLoops != rowSize; ++nLoops) {
+    for (int i = 0; i != rowSize-1; ++i) {
+        if (out[i*colSize+col] > out[(i+1)*colSize + col])
+            swap(out[i*colSize+col], out[(i+1)*colSize + col]);
+    }
+    }
+    
+    /* end problem section */
     
     return out;
 }
 
 template<class T>
-void swap(T *a, T *b, bool desc) {
-    if ( a > b) {
+void swap(T *a, T *b) {
         T temp = *a;
         *a = *b;
         *b = temp;
-    }
 }
 
 
