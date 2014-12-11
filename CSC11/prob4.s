@@ -9,7 +9,7 @@ xFrmt: .asciz "%d"
 xIn: .word 0
 
 .balign 4
-rsltMsg: .asciz "The value ax^2 + bx is %d\n"
+rsltMsg: .asciz "The value 0.073x^2 + 0.86x is %d\n"
 
 .text
 .global problem4
