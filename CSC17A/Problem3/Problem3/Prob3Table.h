@@ -37,7 +37,7 @@ template<class T>
 Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
     rows = nRows;
     cols = nCols;
-    
+    grandTotal=0;
     fstream inFile;
     inFile.open(file);
     if (!inFile.is_open()) cout << "File failed to open";
@@ -53,10 +53,9 @@ Prob3Table<T>::Prob3Table(char * file, int nRows, int nCols) {
     for (int row = 0; row != nRows; ++row) {
         for (int col = 0; col != nCols; ++col) {
             inFile >> table[row*nCols + col];
+            grandTotal+=table[row*nCols + col];
         }
-        cout << endl;
     }
-    cout << endl;
     
     int currentColumn = 0;
     for (int row = 0; row != nRows; ++row) {
