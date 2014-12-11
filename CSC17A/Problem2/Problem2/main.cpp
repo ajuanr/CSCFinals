@@ -33,28 +33,28 @@ int main(int argc, const char * argv[]) {
     cout<<"Sorting on which column"<<endl;
     int column;
     cin>>column;
-    char *zc=rc.sortArray(ch2p,column,ascending);
+    char *zc=rc.sortArray(ch2p,10, 15, column,ascending);
     cout << endl;
     counter = 0;
-    for (int i = 0; i != 150; ++i) {
-        cout << zc[i];
-        if (++counter %15 == 0) cout << endl;
-    }
-    cout << endl;
-//
-//    for(int i=0;i<10;i++)
-//    {
-//        for(int j=0;j<16;j++)
-//        {
-//            cout<<zc[i*16+j];
-//        }
-//        cout << endl;
+//    for (int i = 0; i != 150; ++i) {
+//        cout << zc[i];
+//        if (++counter %15 == 0) cout << endl;
 //    }
-//    delete []zc;
-//    cout<<endl;
-//    
-//    infile.close();
 //    cout << endl;
+
+    for(int i=0;i<10;i++)
+    {
+        for(int j=0;j<15;j++)
+        {
+            cout<<zc[i*15+j];
+        }
+        cout << endl;
+    }
+    delete []zc;
+    cout<<endl;
+    
+    infile.close();
+    cout << endl;
     
     
     return 0;
