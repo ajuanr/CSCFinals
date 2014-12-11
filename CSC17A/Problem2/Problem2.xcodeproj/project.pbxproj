@@ -26,8 +26,6 @@
 		FE21F5DB1A375EF200DC694B /* Problem2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Problem2; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE21F5DE1A375EF200DC694B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FE21F5E61A37604500DC694B /* Prob2Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prob2Sort.h; sourceTree = "<group>"; };
-		FE21F5E81A37674400DC694B /* Problem2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Problem2.txt; path = ../../../../Downloads/CIS17AFinal/Problem2.txt; sourceTree = "<group>"; };
-		FE21F5EA1A3768A100DC694B /* Problem2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Problem2.txt; path = ../../../../Downloads/CIS17AFinal/Problem2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,8 +42,6 @@
 		FE21F5D21A375EF200DC694B = {
 			isa = PBXGroup;
 			children = (
-				FE21F5EA1A3768A100DC694B /* Problem2.txt */,
-				FE21F5E81A37674400DC694B /* Problem2.txt */,
 				FE21F5DD1A375EF200DC694B /* Problem2 */,
 				FE21F5DC1A375EF200DC694B /* Products */,
 			);

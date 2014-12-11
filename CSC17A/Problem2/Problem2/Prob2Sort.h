@@ -15,39 +15,27 @@ using namespace std;
 template <class T>
 void swap(T*, T*, bool);
 
+//This class sorts arrays either ascending or descending
 template<class T>
 class Prob2Sort
 {
 private:
     int *index;                                 //Index that is utilized in the sort
 public:
-    Prob2Sort(){index=0;};                   //Constructor
+    Prob2Sort(){index=NULL;};                   //Constructor
     ~Prob2Sort(){delete []index;};              //Destructor
     T * sortArray(const T*,int,bool);           //Sorts a single column array
     T * sortArray(const T*,int,int,int,bool);   //Sorts a 2 dimensional array represented as a 1 dim array
 };
 
-
 template<class T>
-T * Prob2Sort<T>::sortArray(const T *array, int col, bool desc) {
-    int colSize = 15;
+T * Prob2Sort<T>::sortArray(const T* array, int col, bool desc) {
+    // copy the array into the index
+    int colSize =16;
     int rowSize = 10;
-    T *out = new T [colSize*rowSize];
-    
-    // copy the array
-    for (int i = 0; i !=colSize*rowSize; ++i) {
+    T *out = new T [rowSize*colSize];
+    for (int i = 0; i != 150; ++i) {
         out[i] = array[i];
-    }
-    
-    for ( int j = 0; j != 10; ++j) {
-    for (int i = 0; i != 9; ++i) {
-          cout << "Num: " << *(out+((i*colSize)+ col)) << " " << *(out+(((i+1)*colSize)+ col)) <<  endl;
-        swap((out+(i*colSize)+ col), (out+((i+1)*colSize)+ col), !desc );
-        cout << "swap: " << *(out+((i*colSize)+ col)) << " " << *(out+(((i+1)*colSize)+ col)) <<  endl;
-//            T temp = *(out+(i*colSize)+ col);
-//            *(out+(i*colSize)+ col) = *(out+(i*colSize)+ col+1);
-//            *(out+(i*colSize)+ col+1) = temp;
-        }
     }
     
     return out;
@@ -56,7 +44,6 @@ T * Prob2Sort<T>::sortArray(const T *array, int col, bool desc) {
 template<class T>
 void swap(T *a, T *b, bool desc) {
     if ( a > b) {
-        cout << "True\n";
         T temp = *a;
         *a = *b;
         *b = temp;
