@@ -17,7 +17,7 @@ template <class T>
 void swap(T*, T*, bool);
 
 template<class T>
-void swapArray(int *, int *, int);
+void swapArray(T *, T *, int);
 
 using namespace std;
 
@@ -72,13 +72,13 @@ T * Prob2Sort<T>::sortArray(const T *array, int nRow, int nCol,
     
     for (int nLoops =0; nLoops != nRow; ++nLoops) {
         for (int i = 0; i != nRow-1; ++i) {
-            if (desc){
+            if (!desc){
                 if (out[i*nCol+column] > out[(i+1)*nCol + column])
                     swapArray(out+i*nCol, out+(i+1)*nCol, nCol);
             }
             else
                 if (out[i*nCol+column] < out[(i+1)*nCol + column])
-                    ;//swap(out[i*nCol+column], out[(i+1)*nCol + column]);
+                    swapArray(out+i*nCol, out+(i+1)*nCol, nCol);
         }
     }
     
@@ -93,7 +93,7 @@ void swap(T *a, T *b) {
 }
 
 template<class T>
-void swapArray(int *a, int *b, int size) {
+void swapArray(T *a, T *b, int size) {
     T * temp = new T [size];
     copy(a, a+size, temp);  // copy into temp
     copy(b, b+size, a);     // overwrite a
