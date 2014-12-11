@@ -45,3 +45,13 @@ void SavingsAccount::toString() {
 float SavingsAccount::Total(float savint, int time) {
     return Balance*pow((1+savint),time);
 }
+
+
+float SavingsAccount::TotalRecursive(float savint, int time){
+    Balance *= (1.0+savint);
+    if ( time == 1)
+        return Balance;
+    else {
+        return TotalRecursive(savint, time-1);
+    }
+}

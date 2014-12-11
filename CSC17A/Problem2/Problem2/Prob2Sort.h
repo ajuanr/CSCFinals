@@ -65,6 +65,8 @@ template<class T>
 T * Prob2Sort<T>::sortArray(const T *array, int nRow, int nCol,
                             int column, bool desc) {
     T *out = new T [nRow*nCol];
+    if (column > nCol-1) // file was edited to remove '\n' changed nColumns
+        column = 14;
     // copy the array
     for (int i = 0; i != nRow*nCol; ++i) {
         out[i] = array[i];

@@ -24,9 +24,9 @@ int main(int argc, const char * argv[]) {
     mine.toString();
     cout<<"Balance after 7 years given 10% interest = "
     <<mine.Total((float)(0.10),7)<<endl;
-//    cout<<"Balance after 7 years given 10% interest = "
-//    <<mine.TotalRecursive((float)(0.10),7)
-//    <<" Recursive Calculation "<<endl;
+    cout<<"Balance after 7 years given 10% interest = "
+    <<mine.TotalRecursive((float)(0.10),7)
+    <<" Recursive Calculation "<<endl;
     
     return 0;
 }
